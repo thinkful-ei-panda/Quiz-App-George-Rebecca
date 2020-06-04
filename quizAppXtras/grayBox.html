@@ -1,0 +1,46 @@
+<!-- Intro -->
+<section id='intro' class='group'>
+    <header class='section-header item'>
+        <h2 class='item'>How well do you know Music?</h2>
+        <h3 class='item'>A quiz of random questions to test your music knowledge.</h3>
+    </header>
+    <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='15%;' alt=""></figure>
+    <button class='btn start-btn item'>Begin!</button>
+</section>
+  
+<!-- Question -->
+<form class="group">
+    <legend>${questionNumber}/${totalQuestions}: ${question}</legend>
+    <label for='a'>${answer}
+    <input type='radio' name='answer' value='${a}' required></label>
+    <label for='b'>${answer}
+    <input type='radio' name='answer' value='${b}' required></label>
+    <label for='c'>${answer}
+    <input type='radio' name='answer' value='${c}' required></label>
+    <label for='d'>${answer}
+    <input type='radio' name='answer' value='${d}' required></label>
+    <button class='btn grad-btn submit-btn'>Submit</button>
+</form>
+  
+<!-- Correct -->  
+<section id='correct' class='pop-up group'>
+    <h2 class='item'>That's Right, Good Job!</h2>
+    <figure><img src="https://www.it24hrs.com/wp-content/uploads/2017/07/blob-emoji-good-bye-but-06.gif" width="13%;" alt="Happy emoji"></figure>
+    <button class='btn next-btn item'>Next</button>
+</section>
+  
+<!-- Wrong -->
+<section id='wrong' class='pop-up group'>
+    <h2 class='item'>Sorry, Keep Going!</h2>
+    <h3 class="item">${correctAnswer}</h3>
+    <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" style='width: 10%;'></figure>
+    <button class='btn next-btn item'>Next</button>
+</section>  
+  
+<!-- Result -->
+<section id='result' class='pop-up group'>
+    <h2 class='item'>You got ${score} out of 6 right!</h2>
+    <p class='item'>${message}</p>
+    <figure class='item'><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' width="10%"; alt=''></figure>
+    <button class='btn reset-btn item'>Encore?</button>
+</section>
