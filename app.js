@@ -1,6 +1,7 @@
 'use strict';
 
-const musicTrivia = [
+const musicTrivia = {
+  questions: [
     {
       question: '',
       answers: [
@@ -10,14 +11,18 @@ const musicTrivia = [
     {
       question: '',
       answers: [
-        ],
+      ],
       correctAnswer: ''
     }
   ],
+};
+
+const store = [
   quizStarted: false,
   questionNumber: 0,
-  score: 0
-};
+  scoreCorrect: 0,
+  scoreIncorrect: 0
+]
 
 /**
  * 
@@ -60,41 +65,41 @@ function genResults() {
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
-function renderIntro() {
+function renIntro() {
   // renders intro page through genIntro function
 }
 
-function renderQuestion() {
+function renQuestion() {
   // renders randomly selected new question through genQuestion function
 }
 
-function renderCorrect() {
+function renCorrect() {
   // renders updates to add to score through genCorrect function
 }
 
-function renderIncorrect() {
+function renIncorrect() {
   // renders updates score through genIncorrect function
 }
 
-function renderResults() {
+function renResults() {
   // renders results from genResults function
 }
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
-function handleStart() {
+function hanStart() {
   // event handle when click begin button => renderQuestin function
 }
 
-function handleSubmit() {
+function hanSubmit() {
   // event handle when click submit button - if answer is correct =>  renderCorrect add to score - if answer is incorrect => renderIncorrect
 }
 
-function handleNext() {
+function hanNext() {
   // event handle when click next button - if more questions => go to next question add to questionNumber - if done with quiz => go to results page
 }
 
-function handleNewQuiz() {
+function hanNewQuiz() {
   // event handle when click encore button => renderIntro function
 }
