@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
@@ -83,17 +84,23 @@
 // }
 /********** DECLARATIONS/ASSIGNMENTS **********/
 
-let randomTriviaNum = STORE.trivia[Math.floor(Math.random() * STORE.trivia.length)];
-let currentQuestion = STORE.trivia[randomTriviaNum].question;
-let currentAnswers = STORE.trivia[randomTriviaNum].answers;
-let correctAnswer = STORE.trivia[randomTriviaNum].correct_answer;
 let incorrectStored = STORE.incorrect;
 let correctStored = STORE.correct;
-let message5 = 'CONGRATULATIONS!'<br>'You\'re a Music Master!';
+let message5 = `CONGRATULATIONS!<br>You\'re a Music Master!`;
 let message4 = '';
 let message3 = '';
 let message2 = '';
 let message1 = '';
+
+function getRandomQA(n) {
+  STORE.trivia.forEach(answer => {
+    // let randomTriviaQuestion = STORE.trivia[n];
+    let currentQuestion = STORE.trivia[n].question;
+    let currentAnswers = STORE.trivia[n].answers;
+    let correctAnswer = STORE.trivia[n].correct_answer;
+    return currentQuestion, currentAnswers, correctAnswer; 
+  });  
+}
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 // These functions return HTML templates
@@ -106,7 +113,7 @@ function generateBegin() {
       <h2 class='item'>How well do you know Music?</h2>
       <h3 class='item'>A quiz of random questions to test your music knowledge.</h3>
     </header>
-    <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='15%;' alt="DJ emoji"></figure>
+    <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='200vw;' alt="DJ emoji"></figure>
     <button id='begin-btn' class='btn item'>Begin!</button>
   </section>`;
 
@@ -115,23 +122,20 @@ function generateBegin() {
 
 function generateAnswers() {
   // generates answer list
-  let answersHTML = '';
-  let i = 0;
-
-  currentAnswers.forEach(answer => {
-    answersHTML += `
-    <div class='item'>  
-      <label for='option-${i - 1}'>${answer}
-        <input id='option-${i - 1}' type='radio' name='answer' value='${answer}' required>      
-      </label>
-    </div>`;
-    i++;
-  });
+  
   $('main').html(answersHTML);
 }
 
 function generateQuestion() {
   // generates question page 
+  let n = Math.floor(Math.random()* (STORE.trivia.length) + 1);
+    console.log(n);
+  // getRandomQA(n);
+  // console.log(currentQuestion);
+  // console.log(currentAnswers);
+  // console.log(correctAnswer);
+  let answersHTML = '';
+  let i = 0;
   const questionHTML = `
   <section id="form">
       <form class="group">
@@ -140,12 +144,22 @@ function generateQuestion() {
           <ul>
             <li id='question-num' class='q${STORE.questionNumber + 1}'>Question: ${STORE.questionNumber + 1}/${STORE.totalQuestions}</li>
             <li id='score'>Correct: ${correct} / Incorrect: ${incorrect}</li>
-          </ul>
-          ${generateAnswers()}
-          <button id='submit-btn' class='item btn'>Submit</button>
+          </ul>`;
+
+          currentAnswers.forEach(answer => {
+            answersHTML += `
+            <div class='item'>  
+              <label for='option-${i - 1}'>${answer}
+                <input id='option-${i - 1}' type='radio' name='answer' value='${answer}' required>      
+              </label>
+            </div>`;
+            i++;
+          });
+
+          `<button id='submit-btn' class='item btn'>Submit</button>
         </fieldset>
       </form>
-    </section>`;
+  </section>`;
 
   $('main').html(questionHTML);
 }
@@ -179,7 +193,7 @@ function generateResults() {
   // generates result pop-up
   const resultsHTML = `
   <section id='result' class='pop-up group'>
-    <h2 class='item'>You got ${correctStored} out of ${totalQuestions} right!</h2>
+    <h2 class='item'>You got ${correctStored} out of ${STORE.totalQuestions} right!</h2>
     <p class='item'>message${correctStored}</p>
     <figure class='item'><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' width="10%"; alt=''></figure>
     <button id='reset-btn' class='btn item'>Encore?</button>
@@ -196,13 +210,13 @@ function renderQuiz() {
   let html = '';
 
   if (STORE.quizStarted === false) {
-    $('main').html(generateBegin);
+    $('main').html(generateBegin());
   }
   else if (STORE.questionNumber > 0 && STORE.questionNumber <= STORE.totalQuestions.length) {
-    $('main').html(generateQuestion);
+    $('main').html(generateQuestion());
   }
   else {
-    $('main').html(generateResults);
+    $('main').html(generateResults());
     console.log('generating the results');
   }
 
@@ -238,7 +252,8 @@ function handleBegin() {
     console.log('Begin button ran');
     console.log(`${STORE.quizStarted}`);
     console.log(`${STORE.questionNumber}`);
-    renderQuiz();
+    // renderQuiz();
+    generateQuestion();
   });
   console.log('`handleBegin` ran.');
 }
@@ -293,4 +308,4 @@ function handleQuiz() {
   handleNewQuiz();
 }
 
-$(handleQuiz);
+handleQuiz();
