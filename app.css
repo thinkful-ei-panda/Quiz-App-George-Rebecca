@@ -1,5 +1,40 @@
 /* Your styles should be mobile-first and responsive */
-
+body {
+  background: #000 url('img/musicBG.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+section {
+  background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 80vw;
+    max-height: 50vh;
+    padding: 2em 1em;
+    margin: auto;
+}
+.bg1 {
+  background-color: #009C96;
+}
+.bg2 {
+  background-color: #FE5002;
+}
+.bg3 {
+  background-color: #85C711;
+}
+.bg4 {
+  background-color: #06DD91;
+}
+.bg5 {
+  background-color: #F90009
+}
+.bg6 {
+  background-color: #FEA800
+}
+.bg7 {
+  background-color: #D01C73;
+}
 /** 
   * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
   *
