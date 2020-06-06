@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-'use strict';
+
 
 const STORE = {
   trivia: [
@@ -105,7 +105,7 @@ const STORE = {
       'category': 'Entertainment: Music',
       'type': 'multiple',
       'difficulty': 'easy',
-      'question': 'Which 80s band is fronted by singer\/guitarist Robert Smith?',
+      'question': 'Which 80s band is fronted by singer/guitarist Robert Smith?',
       'correct_answer': 'The Cure',
       'answers': ['The Cure', 'The Smiths', 'Echo &amp; the Bunnymen', 'New Order']
     }, {
