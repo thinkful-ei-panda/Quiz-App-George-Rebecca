@@ -19,27 +19,14 @@
  * 
  */
 
-
-
-// function getTriviaQuestions() {
-//   // load external .json file and assign to a local variable
-//   $.getJSON('triviaEasy.json', (data) => trivia = data);
-// }
 /********** DECLARATIONS/ASSIGNMENTS **********/
 
-
-let message_5 = 'CONGRATULATIONS!<br>You\'re a Music Master!';
-let message_4 = '';
-let message_3 = '';
-let message_2 = '';
-let message_1 = '';
-
 function getRandomQA(n) {
-    let currentQuestion = STORE.trivia[n].question;
-    let currentAnswers = STORE.trivia[n].answers;
-    let correctAnswer = STORE.trivia[n].correct_answer;
-    STORE.randomQuestion = {currentQuestion, currentAnswers, correctAnswer};
-    return STORE.randomQuestion;
+  let currentQuestion = STORE.trivia[n].question;
+  let currentAnswers = STORE.trivia[n].answers;
+  let correctAnswer = STORE.trivia[n].correct_answer;
+  STORE.randomQuestion = {currentQuestion, currentAnswers, correctAnswer};
+  return STORE.randomQuestion;
 }
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
@@ -47,7 +34,7 @@ function getRandomQA(n) {
 
 function generateBegin() {
   // generates intro page function
-  const beginHTML = `
+  $('main').html(`
   <section id='begin' class='group'>
     <header class='section-header item'>
       <h2 class='item'>How well do you know Music?</h2>
@@ -56,21 +43,15 @@ function generateBegin() {
     <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='200vw;' alt="DJ emoji"></figure>
     <button id='level-btn' class='btn item'>Difficulty</button>
     <button id='begin-btn' class='btn item'>Begin!</button>
-  </section>`;
-
-  $('main').html(beginHTML);
+  </section>`);
+  console.log('`generateBegin` ran.');
 }
 
 function generateQuestion() {
   // generates question page 
   let n = Math.floor(Math.random() * (STORE.trivia.length) + 1);
-  console.log(n);
   const {currentQuestion, currentAnswers, correctAnswer} = getRandomQA(n);
-  console.log(currentQuestion);
-  console.log(currentAnswers);
-  console.log(correctAnswer);
   let answersHTML = '';
-  console.log(STORE);
   let i = 0;
   let questionHTML = 
   `<section id="form">
@@ -81,6 +62,7 @@ function generateQuestion() {
             <li id='question-num' class='q${STORE.questionNumber}'>Question: ${STORE.questionNumber}/${STORE.totalQuestions}</li>
             <li id='score'>Correct: ${STORE.correct} / Incorrect: ${STORE.incorrect}</li>
           </ul>`;
+          console.log('`generateQuestion1` ran.');
 
           currentAnswers.forEach(answer => {
             answersHTML += `
@@ -91,49 +73,52 @@ function generateQuestion() {
             </div>`;
             i++;
           });
+          console.log('`generateAnswer` ran.');
         questionHTML += answersHTML + `<button id='submit-btn' class='item btn'>Submit</button>
         </fieldset>
       </form>
   </section>`;
 
-  console.log(questionHTML);
   $('main').html(questionHTML);
+  console.log(n);
+  console.log(currentQuestion);
+  console.log(currentAnswers);
+  console.log(correctAnswer);
+  console.log('`generateQuestion2` ran.');
 }
 
 function generateCorrect() {
-  // generates correct answer pop-up
-  const correctHTML = `
-  <section id='correct' class='pop-up group'>
+  // generates correct answer
+  $('main').html(`
+  <section id='correct' class='group'>
     <h2 class='item'>That's Right, Good Job!</h2>
     <figure><img src="https://www.it24hrs.com/wp-content/uploads/2017/07/blob-emoji-good-bye-but-06.gif" width="200vw;" alt="happy blobmoji"></figure>
     <button id='next-btn' class='btn item'>Next</button>
-  </section>`;
-
-  $('main').html(correctHTML);
+  </section>`);
+  console.log('`generateCorrect` ran.');
 }
 
 function generateIncorrect() {
-  // generates incorrect answer pop-up
-  const incorrectHTML = `
-  <section id='wrong' class='pop-up group'>
+  // generates incorrect answer
+  $('main').html(`
+  <section id='wrong' class='group'>
     <h2 class='item'>That's wrong. Sorry, Keep Going!</h2>
     <h3 class="item">The correct answer is ${STORE.randomQuestion.correctAnswer}.</h3>
     <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" style='width: 100%;' alt='annoyed emoji'></figure>
     <button id='next-btn' class='btn item'>Next</button>
-  </section>`;
-
-  $('main').html(incorrectHTML);
+  </section>`);
+  console.log('`generateIncorrect` ran.');
 }
 
 function generateResults() {
-  // generates result pop-up
+  // generates result
   $('main').html(`
-  <section id='result' class='pop-up group'>
-    <h2 class='item'>You got ${STORE.correct} out of ${STORE.totalQuestions} right!</h2>
-    <p class='item'>message_${STORE.correct}</p>
-    <figure class='item'><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' width="50%"; alt=''></figure>
+  <section id='result' class='group'>
+    <h2 class='item'>You got ${STORE.correct} out of ${STORE.totalQuestions} right.</h2>
+    <div class='item'>${STORE.message[STORE.correct]}</div>
     <button id='reset-btn' class='btn item'>Encore?</button>
   </section>`);
+  console.log('`generateResults` ran.');
 }
 
 /********** RENDER FUNCTION(S) **********/
@@ -151,10 +136,6 @@ function renderQuiz() {
   }
   console.log('`renderQuiz` ran.');  
   }
-
-function renderResults() {
-  // renders results from generateResults function
-}
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -207,27 +188,27 @@ function handleSubmit() {
 // event handle when click next button - if more questions => go to next question add to questionNumber - if done with quiz => go to results page
 function handleNext() {
   $('main').on('click','#next-btn', event => {
-    if (STORE.questionNumber < 5) {
-
-    
-    STORE.quizStarted = true;
-    STORE.questionNumber++;
-    // renderQuiz();
-    generateQuestion();
-  } else {
+    if (STORE.questionNumber < STORE.totalQuestions) {
+      STORE.quizStarted = true;
+      STORE.questionNumber++;
+      generateQuestion();
+    } else {
       generateResults();
-  }
+    }
   });
-
   console.log('`handleNext` ran.');
 }
 
 // event handle when click encore button => render function
 function handleNewQuiz() {
- 
-
-  renderQuiz();
-
+  $('main').on('click','#reset-btn', event => {
+    STORE.quizStarted = false;
+    STORE.questionNumber = 0;
+    STORE.correct = 0;
+    STORE.incorrect = 0;
+    STORE.totalQuestions = 5;
+    renderQuiz();
+  });
   console.log('`handleNewQuiz` ran.');
 }
 
@@ -235,6 +216,7 @@ function handleNewQuiz() {
 const handleQuiz = function() {
   renderQuiz();
   handleBegin();
+  // handleDifficulty();
   handleSubmit();
   handleNext();
   handleNewQuiz();
