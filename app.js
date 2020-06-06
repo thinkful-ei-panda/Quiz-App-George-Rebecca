@@ -2,63 +2,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-'use strict';
-
-// const trivia = [
-//   {
-//     'category': 'Entertainment: Music',
-//     'type': 'multiple',
-//     'difficulty': 'easy',
-//     'question': 'Which singer was featured in Jack &Uuml; (Skrillex &amp; Diplo)&#039;s 2015 song &#039;Where Are &Uuml; Now&#039;?',
-//     'correct_answer': 'Justin Bieber',
-//     'incorrect_answers': ['Selena Gomez', 'Ellie Goulding', 'The Weeknd']
-//   }, {
-//     'category': 'Entertainment: Music',
-//     'type': 'multiple',
-//     'difficulty': 'easy',
-//     'question': 'Who is the lead singer of the band Coldplay?',
-//     'correct_answer': 'Chris Martin',
-//     'incorrect_answers': ['Chris Isaak', 'Chris Wallace', 'Chris Connelly']
-//   }, {
-//     'category': 'Entertainment: Music',
-//     'type': 'multiple',
-//     'difficulty': 'easy',
-//     'question': 'What was the name of singer Frank Ocean&#039;s second studio album, which was released on August 20, 2016?',
-//     'correct_answer': 'Blonde',
-//     'incorrect_answers': ['Brunette', 'Black', 'Burgundy']
-//   }, {
-//     'category': 'Entertainment: Music',
-//     'type': 'multiple',
-//     'difficulty': 'easy',
-//     'question': 'Kanye West at 2009 VMA&#039;s interrupted which celebrity?',
-//     'correct_answer': 'Taylor Swift',
-//     'incorrect_answers': ['MF DOOM', 'Beyonce', 'Beck']
-//   }, {
-//     'category': 'Entertainment: Music',
-//     'type': 'multiple',
-//     'difficulty': 'easy',
-//     'question': 'Which Nirvana album had a naked baby on the cover?',
-//     'correct_answer': 'Nevermind',
-//     'incorrect_answers': ['Bleach', 'In Utero', 'Incesticide']
-//   }, {
-//     'category': 'Entertainment: Music',
-//     'type': 'multiple',
-//     'difficulty': 'easy',
-//     'question': 'Kanye West&#039;s &quot;Gold Digger&quot; featured which Oscar-winning actor?',
-//     'correct_answer': 'Jamie Foxx',
-//     'answers': ['Alec Baldwin', 'Jamie Foxx', 'Dwayne Johnson', ' Bruce Willis']
-//   }
-// ];
-
-// let STORE = {
-//   quizStarted: false,
-// questionNumber: 0,
-// correct: 0,
-// incorrect: 0,
-//   totalQuestions: 5
-// };
-
-
 
 
 /**
@@ -86,20 +29,21 @@
 
 let incorrectStored = STORE.incorrect;
 let correctStored = STORE.correct;
-let message5 = `CONGRATULATIONS!<br>You\'re a Music Master!`;
+let message5 = 'CONGRATULATIONS!<br>You\'re a Music Master!';
 let message4 = '';
 let message3 = '';
 let message2 = '';
 let message1 = '';
 
 function getRandomQA(n) {
-  STORE.trivia.forEach(answer => {
+  // STORE.trivia.forEach(answer => {
     // let randomTriviaQuestion = STORE.trivia[n];
     let currentQuestion = STORE.trivia[n].question;
     let currentAnswers = STORE.trivia[n].answers;
     let correctAnswer = STORE.trivia[n].correct_answer;
-    return currentQuestion, currentAnswers, correctAnswer; 
-  });  
+    STORE.randomQuestion = {currentQuestion, currentAnswers, correctAnswer};
+    return STORE.randomQuestion;
+  // });  
 }
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
@@ -128,22 +72,23 @@ function generateAnswers() {
 
 function generateQuestion() {
   // generates question page 
-  let n = Math.floor(Math.random()* (STORE.trivia.length) + 1);
-    console.log(n);
-  // getRandomQA(n);
-  // console.log(currentQuestion);
-  // console.log(currentAnswers);
-  // console.log(correctAnswer);
+  let n = Math.floor(Math.random() * (STORE.trivia.length) + 1);
+  console.log(n);
+  const {currentQuestion, currentAnswers, correctAnswer} = getRandomQA(n);
+  console.log(currentQuestion);
+  console.log(currentAnswers);
+  console.log(correctAnswer);
   let answersHTML = '';
+  console.log(STORE);
   let i = 0;
-  const questionHTML = `
-  <section id="form">
+  let questionHTML = 
+  `<section id="form">
       <form class="group">
         <fieldset>
           <legend>${currentQuestion}</legend>
           <ul>
-            <li id='question-num' class='q${STORE.questionNumber + 1}'>Question: ${STORE.questionNumber + 1}/${STORE.totalQuestions}</li>
-            <li id='score'>Correct: ${correct} / Incorrect: ${incorrect}</li>
+            <li id='question-num' class='q${STORE.questionNumber}'>Question: ${STORE.questionNumber}/${STORE.totalQuestions}</li>
+            <li id='score'>Correct: ${STORE.correct} / Incorrect: ${STORE.incorrect}</li>
           </ul>`;
 
           currentAnswers.forEach(answer => {
@@ -155,12 +100,12 @@ function generateQuestion() {
             </div>`;
             i++;
           });
-
-          `<button id='submit-btn' class='item btn'>Submit</button>
+        questionHTML += answersHTML + `<button id='submit-btn' class='item btn'>Submit</button>
         </fieldset>
       </form>
   </section>`;
 
+  console.log(questionHTML);
   $('main').html(questionHTML);
 }
 
@@ -180,8 +125,8 @@ function generateIncorrect() {
   // generates incorrect answer pop-up
   const incorrectHTML = `
   <section id='wrong' class='pop-up group'>
-    <h2 class='item'>Sorry, Keep Going!</h2>
-    <h3 class="item">The correct answer is ${correctAnswer}.</h3>
+    <h2 class='item'>That's wrong. Sorry, Keep Going!</h2>
+    <h3 class="item">The correct answer is ${STORE.randomQuestion.correctAnswer}.</h3>
     <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" style='width: 10%;' alt='annoyed emoji'></figure>
     <button id='next-btn' class='btn item'>Next</button>
   </section>`;
@@ -191,20 +136,18 @@ function generateIncorrect() {
 
 function generateResults() {
   // generates result pop-up
-  const resultsHTML = `
+  $('main').html(`
   <section id='result' class='pop-up group'>
     <h2 class='item'>You got ${correctStored} out of ${STORE.totalQuestions} right!</h2>
     <p class='item'>message${correctStored}</p>
     <figure class='item'><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' width="10%"; alt=''></figure>
     <button id='reset-btn' class='btn item'>Encore?</button>
-  </section>`;
-
-  $('main').html(resultsHTML);
+  </section>`);
 }
 
 /********** RENDER FUNCTION(S) **********/
 
-{/* // This function conditionally replaces the contents of the <main> tag based on the state of the store */}
+// This function conditionally replaces the contents of the <main> tag based on the state of the store
 function renderQuiz() {
   // renders begin page through generateBegin function
   let html = '';
@@ -215,12 +158,10 @@ function renderQuiz() {
   else if (STORE.questionNumber > 0 && STORE.questionNumber <= STORE.totalQuestions.length) {
     $('main').html(generateQuestion());
   }
-  else {
-    $('main').html(generateResults());
-    console.log('generating the results');
   }
 
   console.log('`renderQuiz` ran.');  
+}
 }
 
 function renderQuestion() {
@@ -245,11 +186,9 @@ function renderResults() {
 // event handle when click begin button => renderQuestin function
 function handleBegin() {
   $('main').on('click','#begin-btn', event => {
-    event.preventDefault();
-      
+  
     STORE.quizStarted = true;
     STORE.questionNumber = 1;
-    console.log('Begin button ran');
     console.log(`${STORE.quizStarted}`);
     console.log(`${STORE.questionNumber}`);
     // renderQuiz();
@@ -258,7 +197,9 @@ function handleBegin() {
   console.log('`handleBegin` ran.');
 }
 
-// event handle when click submit button - if answer is correct =>        generateCorrect add to score - if answer is incorrect => generateIncorrect
+// event handle when click submit button - if answer is correct =>  generateCorrect add to score - 
+// if answer is incorrect => generateIncorrect
+
 function handleSubmit() {
   $('main').submit('#submit-btn', event => {
     event.preventDefault();
@@ -268,7 +209,7 @@ function handleSubmit() {
     console.log(i);
     console.log(input);
 
-    if (input === correctAnswer) {
+    if (input === STORE.randomQuestion.correctAnswer) {
       STORE.correct++;
       generateCorrect();
       console.log(STORE.correct);
@@ -285,7 +226,18 @@ function handleSubmit() {
 
 // event handle when click next button - if more questions => go to next question add to questionNumber - if done with quiz => go to results page
 function handleNext() {
- 
+  $('main').on('click','#next-btn', event => {
+    if (STORE.questionNumber < 5) {
+
+    
+    STORE.quizStarted = true;
+    STORE.questionNumber++;
+    // renderQuiz();
+    generateQuestion();
+  } else {
+      generateResults();
+  }
+  });
 
   console.log('`handleNext` ran.');
 }
