@@ -37,11 +37,24 @@ function generateBegin() {
   $('main').html(`
   <section id='begin' class='group'>
     <header class='section-header item'>
-      <h2 class='item'>How well do you know Music?</h2>
       <h3 class='item'>A quiz of random questions to test your music knowledge.</h3>
     </header>
     <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='200vw;' alt="DJ emoji"></figure>
-    <button id='level-btn' class='btn item'>Difficulty</button>
+    
+    <div class='difficultySelect'>
+    <form>
+    <h3>Difficulty:<h3>
+    <label for="easy">Easy</label>
+    <input type='radio' id='easy' name='difficulty' required>
+
+    <label for="medium">Medium</label>
+    <input type='radio' id='medium' name='difficulty' required>
+
+    <label for='hard'>Hard</label>
+    <input type='radio' id='hard' name='difficulty' required>
+    </form>
+    </div>
+    
     <button id='begin-btn' class='btn item'>Begin!</button>
   </section>`);
   console.log('`generateBegin` ran.');
@@ -88,7 +101,7 @@ function generateQuestion() {
 }
 
 function generateCorrect() {
-  // generates correct answer
+  // generates correct answer page
   $('main').html(`
   <section id='correct' class='group'>
     <h2 class='item'>That's Right, Good Job!</h2>
@@ -99,7 +112,7 @@ function generateCorrect() {
 }
 
 function generateIncorrect() {
-  // generates incorrect answer
+  // generates incorrect answer page
   $('main').html(`
   <section id='wrong' class='group'>
     <h2 class='item'>That's wrong. Sorry, Keep Going!</h2>
@@ -111,7 +124,7 @@ function generateIncorrect() {
 }
 
 function generateResults() {
-  // generates result
+  // generates result page
   $('main').html(`
   <section id='result' class='group'>
     <h2 class='item'>You got ${STORE.correct} out of ${STORE.totalQuestions} right.</h2>

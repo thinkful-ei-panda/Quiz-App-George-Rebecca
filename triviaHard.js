@@ -1,7 +1,14 @@
 /* eslint-disable no-unused-vars */
 'use strict';
 
-const STORE = {    
+const STORE = {
+  quizStarted: false,
+  questionNumber: 0,
+  correctAnswer: 0,
+  incorrectAnswer: 0,
+  totalQuestions: 5
+  difficulty: 'hard',
+  
   trivia: [
     {
       'category': 'Entertainment: Music',
@@ -179,10 +186,5 @@ const STORE = {
       'correct_answer': 'The Velvet Underground and Nico',
       'answers': ['The Velvet Underground and Nico', 'Abbey Road', 'Led Zeppelin IV', 'Pet Sounds']
     }
-  ],
-  quizStarted: false,
-  questionNumber: 0,
-  correctAnswer: 0,
-  incorrectAnswer: 0,
-  totalQuestions: 5
+  ]
 };

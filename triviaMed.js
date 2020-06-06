@@ -2,6 +2,13 @@
 'use strict';
 
 const STORE = {
+  quizStarted: false,
+  questionNumber: 0,
+  correctAnswer: 0,
+  incorrectAnswer: 0,
+  totalQuestions: 5
+  difficulty: 'medium',
+
   trivia: [
     {
       'category': 'Entertainment: Music',
@@ -180,10 +187,5 @@ const STORE = {
       'correct_answer': 'Welcome to Miami',
       'answers': ['Dale', 'Global Warming', 'Welcome to Miami', 'Armando']
     }
-  ],
-  quizStarted: false,
-  questionNumber: 0,
-  correctAnswer: 0,
-  incorrectAnswer: 0,
-  totalQuestions: 5
+  ]
 };

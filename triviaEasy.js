@@ -7,6 +7,7 @@ const STORE = {
   correct: 0,
   incorrect: 0,
   totalQuestions: 5,
+  difficulty: 'easy',
 
   message: [
     `<h2>Well...I wouldn't quit your day job just yet.<br>Please come back when your eyes aren't leaking and try again!<h2> 
