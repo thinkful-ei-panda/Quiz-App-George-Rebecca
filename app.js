@@ -158,11 +158,10 @@ function renderQuiz() {
   else if (STORE.questionNumber > 0 && STORE.questionNumber <= STORE.totalQuestions.length) {
     $('main').html(generateQuestion());
   }
+  console.log('`renderQuiz` ran.');  
   }
 
-  console.log('`renderQuiz` ran.');  
-}
-}
+
 
 function renderQuestion() {
   // renders randomly selected new question through generateQuestion function
