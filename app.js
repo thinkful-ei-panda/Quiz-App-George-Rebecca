@@ -27,23 +27,19 @@
 // }
 /********** DECLARATIONS/ASSIGNMENTS **********/
 
-let incorrectStored = STORE.incorrect;
-let correctStored = STORE.correct;
-let message5 = 'CONGRATULATIONS!<br>You\'re a Music Master!';
-let message4 = '';
-let message3 = '';
-let message2 = '';
-let message1 = '';
+
+let message_5 = 'CONGRATULATIONS!<br>You\'re a Music Master!';
+let message_4 = '';
+let message_3 = '';
+let message_2 = '';
+let message_1 = '';
 
 function getRandomQA(n) {
-  // STORE.trivia.forEach(answer => {
-    // let randomTriviaQuestion = STORE.trivia[n];
     let currentQuestion = STORE.trivia[n].question;
     let currentAnswers = STORE.trivia[n].answers;
     let correctAnswer = STORE.trivia[n].correct_answer;
     STORE.randomQuestion = {currentQuestion, currentAnswers, correctAnswer};
     return STORE.randomQuestion;
-  // });  
 }
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
@@ -58,16 +54,11 @@ function generateBegin() {
       <h3 class='item'>A quiz of random questions to test your music knowledge.</h3>
     </header>
     <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='200vw;' alt="DJ emoji"></figure>
+    <button id='level-btn' class='btn item'>Difficulty</button>
     <button id='begin-btn' class='btn item'>Begin!</button>
   </section>`;
 
   $('main').html(beginHTML);
-}
-
-function generateAnswers() {
-  // generates answer list
-  
-  $('main').html(answersHTML);
 }
 
 function generateQuestion() {
@@ -114,7 +105,7 @@ function generateCorrect() {
   const correctHTML = `
   <section id='correct' class='pop-up group'>
     <h2 class='item'>That's Right, Good Job!</h2>
-    <figure><img src="https://www.it24hrs.com/wp-content/uploads/2017/07/blob-emoji-good-bye-but-06.gif" width="13%;" alt="happy blobmoji"></figure>
+    <figure><img src="https://www.it24hrs.com/wp-content/uploads/2017/07/blob-emoji-good-bye-but-06.gif" width="200vw;" alt="happy blobmoji"></figure>
     <button id='next-btn' class='btn item'>Next</button>
   </section>`;
 
@@ -127,7 +118,7 @@ function generateIncorrect() {
   <section id='wrong' class='pop-up group'>
     <h2 class='item'>That's wrong. Sorry, Keep Going!</h2>
     <h3 class="item">The correct answer is ${STORE.randomQuestion.correctAnswer}.</h3>
-    <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" style='width: 10%;' alt='annoyed emoji'></figure>
+    <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" style='width: 100%;' alt='annoyed emoji'></figure>
     <button id='next-btn' class='btn item'>Next</button>
   </section>`;
 
@@ -138,9 +129,9 @@ function generateResults() {
   // generates result pop-up
   $('main').html(`
   <section id='result' class='pop-up group'>
-    <h2 class='item'>You got ${correctStored} out of ${STORE.totalQuestions} right!</h2>
-    <p class='item'>message${correctStored}</p>
-    <figure class='item'><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' width="10%"; alt=''></figure>
+    <h2 class='item'>You got ${STORE.correct} out of ${STORE.totalQuestions} right!</h2>
+    <p class='item'>message_${STORE.correct}</p>
+    <figure class='item'><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' width="50%"; alt=''></figure>
     <button id='reset-btn' class='btn item'>Encore?</button>
   </section>`);
 }
@@ -155,25 +146,11 @@ function renderQuiz() {
   if (STORE.quizStarted === false) {
     $('main').html(generateBegin());
   }
-  else if (STORE.questionNumber > 0 && STORE.questionNumber <= STORE.totalQuestions.length) {
+  else if (STORE.questionNumber > 0 && STORE.questionNumber <= STORE.totalQuestions) {
     $('main').html(generateQuestion());
   }
   console.log('`renderQuiz` ran.');  
   }
-
-
-
-function renderQuestion() {
-  // renders randomly selected new question through generateQuestion function
-}
-
-function renderCorrect() {
-  // renders updates to add to score through generateCorrect function
-}
-
-function renderIncorrect() {
-  // renders updates score through generateIncorrect function
-}
 
 function renderResults() {
   // renders results from generateResults function
@@ -190,10 +167,17 @@ function handleBegin() {
     STORE.questionNumber = 1;
     console.log(`${STORE.quizStarted}`);
     console.log(`${STORE.questionNumber}`);
-    // renderQuiz();
     generateQuestion();
   });
   console.log('`handleBegin` ran.');
+}
+
+function handleDifficulty() {
+ 
+
+  
+
+  console.log('`handleDifficulty` ran.');
 }
 
 // event handle when click submit button - if answer is correct =>  generateCorrect add to score - 
@@ -202,10 +186,7 @@ function handleBegin() {
 function handleSubmit() {
   $('main').submit('#submit-btn', event => {
     event.preventDefault();
-
-    let i = STORE.questionNumber - 1;
     let input = $('form input[type=\'radio\']:checked').val();
-    console.log(i);
     console.log(input);
 
     if (input === STORE.randomQuestion.correctAnswer) {
@@ -251,12 +232,12 @@ function handleNewQuiz() {
 }
 
 //  This function will be callback when page loads. Responsible for initial quiz rendering, and activating handler functions for quiz.
-function handleQuiz() {
+const handleQuiz = function() {
   renderQuiz();
   handleBegin();
   handleSubmit();
   handleNext();
   handleNewQuiz();
-}
+};
 
-handleQuiz();
+$(handleQuiz);
