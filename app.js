@@ -21,6 +21,8 @@
 
 /********** DECLARATIONS/ASSIGNMENTS **********/
 
+let STORE = {quizStarted: false};
+
 function getRandomQA(n) {
   let currentQuestion = STORE.trivia[n].question;
   let currentAnswers = STORE.trivia[n].answers;
@@ -42,20 +44,20 @@ function generateBegin() {
     <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='200vw;' alt="DJ emoji"></figure>
     
     <div class='difficultySelect'>
-    <form>
+    <form id='difficulty-select'>
     <h3>Difficulty:<h3>
-    <label for="easy">Easy</label>
-    <input type='radio' id='easy' name='difficulty' required>
+    <label for="easy-btn">Easy</label>
+    <input type='radio' value='easy' id='easy-btn' name='difficulty' class='difficulty-btn' required>
 
-    <label for="medium">Medium</label>
-    <input type='radio' id='medium' name='difficulty' required>
+    <label for="medium-btn">Medium</label>
+    <input type='radio' value='medium' id='medium-btn' name='difficulty' class='difficulty-btn' required>
 
-    <label for='hard'>Hard</label>
-    <input type='radio' id='hard' name='difficulty' required>
+    <label for='hard-btn'>Hard</label>
+    <input type='radio' value='hard' id='hard-btn' name='difficulty' class='difficulty-btn' required>
+
+    <button id='begin-btn' class='btn item'>Begin!</button>
     </form>
     </div>
-    
-    <button id='begin-btn' class='btn item'>Begin!</button>
   </section>`);
   console.log('`generateBegin` ran.');
 }
@@ -154,31 +156,44 @@ function renderQuiz() {
 
 // These functions handle events (submit, click, etc)
 // event handle when click begin button => renderQuestin function
+function handleDifficulty() {
+ $('main').on('submit', '#difficulty-select', event => {
+    event.preventDefault();
+    const difficulty = event.target.difficulty.value;
+    console.log('`handleDifficulty` ran.');
+    if (difficulty === 'hard') {
+      STORE = STOREHARD;
+    } else if (difficulty === 'medium') {
+      STORE = STOREMED;
+    } else {
+      STORE = STOREEASY;
+    }
+    STORE.quizStarted = false;
+    STORE.questionNumber = 0;
+    STORE.correct = 0;
+    STORE.incorrect = 0;
+    STORE.totalQuestions = 5;
+    handleBegin();
+ })
+}
+
 function handleBegin() {
-  $('main').on('click','#begin-btn', event => {
+  // $('main').on('click','#begin-btn', event => {
   
     STORE.quizStarted = true;
     STORE.questionNumber = 1;
     console.log(`${STORE.quizStarted}`);
     console.log(`${STORE.questionNumber}`);
     generateQuestion();
-  });
+  // });
   console.log('`handleBegin` ran.');
-}
-
-function handleDifficulty() {
- 
-
-  
-
-  console.log('`handleDifficulty` ran.');
 }
 
 // event handle when click submit button - if answer is correct =>  generateCorrect add to score - 
 // if answer is incorrect => generateIncorrect
 
 function handleSubmit() {
-  $('main').submit('#submit-btn', event => {
+  $('main').on('submit', 'form.group', event => {
     event.preventDefault();
     let input = $('form input[type=\'radio\']:checked').val();
     console.log(input);
@@ -228,8 +243,8 @@ function handleNewQuiz() {
 //  This function will be callback when page loads. Responsible for initial quiz rendering, and activating handler functions for quiz.
 const handleQuiz = function() {
   renderQuiz();
-  handleBegin();
-  // handleDifficulty();
+  // handleBegin();
+  handleDifficulty();
   handleSubmit();
   handleNext();
   handleNewQuiz();

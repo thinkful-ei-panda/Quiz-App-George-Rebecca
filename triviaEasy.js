@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 
-const STORE = {
+const STOREEASY = {
   quizStarted: false,
   questionNumber: 0,
   correct: 0,
