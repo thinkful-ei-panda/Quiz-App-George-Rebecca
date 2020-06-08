@@ -1,20 +1,14 @@
 /* Your styles should be mobile-first and responsive */
+* {
+  /* border: red solid 1px; */
+}
+
 body {
   background: #000 url('img/musicBG.jpg') no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
 }
-section {
-  background-color: #eee;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 80vw;
-  max-height: 50vh;
-  padding: 2em 1em;
-  margin: auto;
-}
+
 .bg1 {
   background-color: #009C96;
 }
@@ -36,6 +30,126 @@ section {
 .bg7 {
   background-color: #D01C73;
 }
+
+/* MAIN */
+.group {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* max-width: 80vw;
+    max-height: 50vh; */
+    padding: 2em 1em;
+    margin: 100px;
+    border-radius: 10px;
+  }
+
+  .emoji {
+    width: 19vmax;
+  }
+
+/* BEGIN PAGE */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header h1, h3 {
+  margin: 20px;
+}
+
+.section-header h1 {
+  font-family: Fauna One;
+}
+
+.section-header h3 {
+  font-family: Poppins;
+  font-size: 20px;
+}
+
+#difficulty-select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#difficulty-select h3, #begin-btn {
+  font-family: Fauna One;
+}
+
+#difficulty-select label {
+  font-family: Poppins;
+  margin-right: 10px;
+} 
+
+#begin-btn, #submit-btn, #next-btn, #reset-btn {
+  background-color: white;
+  border-radius: 6px;
+  border: solid black 1px;
+  margin-left: 30px;
+  font-family: Fauna One;
+  height: 40px;
+}
+
+#begin-btn:hover, #submit-btn:hover, #next-btn:hover, #reset-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+[type="radio"] {
+  margin-right: 10px;
+}
+
+/* QUESTION PAGES */
+#form > .group > fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#form > .group > fieldset > legend {
+  font-family: Fauna One;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.item {
+  display: inline-block;
+  margin-right: 50px;
+  margin-bottom: 5px;
+  font-family: Poppins;
+}
+
+#question-num, #score {
+  font-family: Poppins;
+}
+
+/* INCORRECT PAGE */
+h2.item {
+  font-family: Fauna One;
+  margin-right: 0;
+}
+
+h3.item {
+  font-family: Poppins;
+  margin-right: 0;
+}
+
+section > form > fieldset > #submit-btn {
+  margin-top: 50px;
+}
+
 /** 
   * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
   *
