@@ -10,24 +10,25 @@ const STOREMED = {
 
   message: [
     `<h2>Well...I wouldn't quit your day job just yet.<br>Please come back when your eyes aren't leaking and try again!<h2> 
-    <figure><img src='https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Crying_200px.gif'  class='emoji' alt=''></figure>
+    <figure><img src='https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Crying_200px.gif' class='emoji' alt=''></figure>
     <h3>*Sobbing Hysterically*</h3>`,
     `<h2>Hmmm. Atleast you got 1 right!<br>You may be hangry and need a snack. Come back and try again!<h2> 
-    <figure><img src='https://discordemoji.com/assets/emoji/blobshake.gif'  class='emoji' alt=''></figure>
+    <figure><img src='https://discordemoji.com/assets/emoji/blobshake.gif' class='emoji'; alt=''></figure>
     <h3>Aaaggghhh %@*?&$#!</h3>`,
     `<h2>NICE TRY!<br>Keep practicing and one day you could be a Music Trivia Master!<h2> 
-    <figure><img src='https://emojis.slackmojis.com/emojis/images/1500426362/2651/allo-shocked.gif?1500426362'  class='emoji' alt=''></figure>
+    <figure><img src='https://emojis.slackmojis.com/emojis/images/1500426362/2651/allo-shocked.gif?1500426362' class='emoji' alt=''></figure>
     <h3>Uhhhh Whaaaat??</h3>`,
     `<h2>GREAT JOB!<br>You're on your way to Music Trivia Master Status!<h2> 
-    <figure><img src='https://discordemoji.com/assets/emoji/blobbongos.gif'  class='emoji' alt='Excited Blobmoji'></figure>
+    <figure><img src='https://discordemoji.com/assets/emoji/blobbongos.gif' class='emoji' alt='Excited Blobmoji'></figure>
     <h3>Come On! Again! Again! Again!</h3>`,
     `<h2>AWESOME!<br>You're a Music Trivia Master-in-Training!<h2> 
-    <figure><img src='https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430'  class='emoji' alt='Cool Shades Blobmoji'></figure>
+    <figure><img src='https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430' class='emoji' alt='Cool Shades Blobmoji'></figure>
     <h3>Yeah...I'm STILL better than you!</h3>`,
     `<h2>CONGRATULATIONS!<br>You're a Music Trivia Master!<h2> 
-    <figure><img src='https://discordemoji.com/assets/emoji/BlobRave.gif'  class='emoji' alt='Neon Dancing Blobmoji'></figure>
+    <figure><img src='https://discordemoji.com/assets/emoji/BlobRave.gif' class='emoji' alt='Neon Dancing Blobmoji'></figure>
     <h3>Let's Go. PARTY TIME!!</h3>`
   ],
+
 
   trivia: [
     {

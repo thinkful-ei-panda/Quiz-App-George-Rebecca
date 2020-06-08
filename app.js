@@ -77,8 +77,8 @@ function generateQuestion() {
   let questionHTML = 
   `<section id="form">
       <form class="group">
-      <ul>
-        <li id='question-num' class='q${STORE.questionNumber}'>Question: ${STORE.questionNumber}/${STORE.totalQuestions}</li>
+        <ul>
+        <li id='question-num' class='q${STORE.questionNumber}'>Question: ${STORE.questionNumber} / ${STORE.totalQuestions}</li>
         <li id='score'>Correct: ${STORE.correct} / Incorrect: ${STORE.incorrect}</li>
       </ul>
         <fieldset>
