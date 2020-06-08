@@ -18,6 +18,8 @@
  * SEE BELOW FOR THE CATEGORIES OF THE TYPES OF FUNCTIONS YOU WILL BE CREATING 👇
  * 
  */
+// let currentAnswers = `${STORE.trivia[n].incorrect_answers}, ${correctAnswer}`;
+//   currentAnswers.sort(() => Math.random() - 0.5);
 
 /********** DECLARATIONS/ASSIGNMENTS **********/
 
@@ -25,8 +27,10 @@ let STORE = {quizStarted: false};
 
 function getRandomQA(n) {
   let currentQuestion = STORE.trivia[n].question;
-  let currentAnswers = STORE.trivia[n].answers;
   let correctAnswer = STORE.trivia[n].correct_answer;
+  let currentAnswers = STORE.trivia[n].incorrect_answers;
+  let answersArray = currentAnswers.concat(correctAnswer);
+  currentAnswers = answersArray.sort(() => Math.random() - 0.5);
   STORE.randomQuestion = {currentQuestion, currentAnswers, correctAnswer};
   return STORE.randomQuestion;
 }
@@ -38,14 +42,16 @@ function generateBegin() {
   // generates intro page function
   $('main').html(`
   <section id='begin' class='group'>
-    <header class='section-header item'>
+    <header class='section-header'>
+      <h1>How well do you know Music??</h1>
       <h3 class='item'>A quiz of random questions to test your music knowledge.</h3>
     </header>
-    <figure class="item"><img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" width='200vw;' alt="DJ emoji"></figure>
+    <figure class="item">
+    <img src="http://rs165.pbsrc.com/albums/u55/BJ_BOBBI_JO9/Dance%20and%20music%20related/Clubbin.gif~c200" alt="DJ emoji" class='emoji'></figure>
     
     <div class='difficultySelect'>
     <form id='difficulty-select'>
-    <h3>Difficulty:<h3>
+    <h3>Difficulty:</h3>
     <label for="easy-btn">Easy</label>
     <input type='radio' value='easy' id='easy-btn' name='difficulty' class='difficulty-btn' required>
 
@@ -71,13 +77,14 @@ function generateQuestion() {
   let questionHTML = 
   `<section id="form">
       <form class="group">
+      <ul>
+        <li id='question-num' class='q${STORE.questionNumber}'>Question: ${STORE.questionNumber}/${STORE.totalQuestions}</li>
+        <li id='score'>Correct: ${STORE.correct} / Incorrect: ${STORE.incorrect}</li>
+      </ul>
         <fieldset>
           <legend>${currentQuestion}</legend>
-          <ul>
-            <li id='question-num' class='q${STORE.questionNumber}'>Question: ${STORE.questionNumber}/${STORE.totalQuestions}</li>
-            <li id='score'>Correct: ${STORE.correct} / Incorrect: ${STORE.incorrect}</li>
-          </ul>`;
-          console.log('`generateQuestion1` ran.');
+          `;
+          console.log('`generateQuestion1st` ran.');
 
           currentAnswers.forEach(answer => {
             answersHTML += `
@@ -89,17 +96,18 @@ function generateQuestion() {
             i++;
           });
           console.log('`generateAnswer` ran.');
+
         questionHTML += answersHTML + `<button id='submit-btn' class='item btn'>Submit</button>
         </fieldset>
       </form>
   </section>`;
 
   $('main').html(questionHTML);
-  console.log(n);
-  console.log(currentQuestion);
-  console.log(currentAnswers);
-  console.log(correctAnswer);
-  console.log('`generateQuestion2` ran.');
+  console.log(`Question number: ${n}`);
+  console.log(`Question: ${currentQuestion}`);
+  console.log(`Available answers: ${currentAnswers}`);
+  console.log(`Correct Answer: ${correctAnswer}`);
+  console.log('`generateQuestion2nd` ran.');
 }
 
 function generateCorrect() {
@@ -107,7 +115,7 @@ function generateCorrect() {
   $('main').html(`
   <section id='correct' class='group'>
     <h2 class='item'>That's Right, Good Job!</h2>
-    <figure><img src="https://www.it24hrs.com/wp-content/uploads/2017/07/blob-emoji-good-bye-but-06.gif" width="200vw;" alt="happy blobmoji"></figure>
+    <figure><img src="https://www.it24hrs.com/wp-content/uploads/2017/07/blob-emoji-good-bye-but-06.gif" alt="happy blobmoji" class='emoji'></figure>
     <button id='next-btn' class='btn item'>Next</button>
   </section>`);
   console.log('`generateCorrect` ran.');
@@ -119,7 +127,7 @@ function generateIncorrect() {
   <section id='wrong' class='group'>
     <h2 class='item'>That's wrong. Sorry, Keep Going!</h2>
     <h3 class="item">The correct answer is ${STORE.randomQuestion.correctAnswer}.</h3>
-    <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" style='width: 100%;' alt='annoyed emoji'></figure>
+    <figure><img src="https://uploads.disquscdn.com/images/8c259f33f4a08235733954184016428bf471a5e39af6479398e2e8f7c2ab378d.gif" alt='annoyed emoji' class='emoji'></figure>
     <button id='next-btn' class='btn item'>Next</button>
   </section>`);
   console.log('`generateIncorrect` ran.');
@@ -160,7 +168,6 @@ function handleDifficulty() {
  $('main').on('submit', '#difficulty-select', event => {
     event.preventDefault();
     const difficulty = event.target.difficulty.value;
-    console.log('`handleDifficulty` ran.');
     if (difficulty === 'hard') {
       STORE = STOREHARD;
     } else if (difficulty === 'medium') {
@@ -174,16 +181,16 @@ function handleDifficulty() {
     STORE.incorrect = 0;
     STORE.totalQuestions = 5;
     handleBegin();
- })
+ });
+ console.log('`handleDifficulty` ran.');
 }
 
 function handleBegin() {
   // $('main').on('click','#begin-btn', event => {
-  
     STORE.quizStarted = true;
     STORE.questionNumber = 1;
-    console.log(`${STORE.quizStarted}`);
-    console.log(`${STORE.questionNumber}`);
+    console.log(`quiz started: ${STORE.quizStarted}`);
+    console.log(`question number: ${STORE.questionNumber} of ${STORE.totalQuestions}`);
     generateQuestion();
   // });
   console.log('`handleBegin` ran.');
@@ -201,12 +208,12 @@ function handleSubmit() {
     if (input === STORE.randomQuestion.correctAnswer) {
       STORE.correct++;
       generateCorrect();
-      console.log(STORE.correct);
+      console.log(`correct score ${STORE.correct}`);
     }
     else {
       STORE.incorrect++;
       generateIncorrect();
-      console.log(STORE.incorrect);
+      console.log(`correct score ${STORE.incorrect}`);
     }
     console.log('Submit btn ran');
   });
